@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
     public GameObject eggPrefab;
     public Terrain terrain;
     TerrainData terrainData;
+    public Event EggDropped;
     void Start()
     {
         terrainData = terrain.terrainData;
@@ -20,5 +21,6 @@ public class Spawner : MonoBehaviour
         Vector3 pos = new Vector3(x, 0, z);
         pos.y = terrain.SampleHeight(pos) + 10; //Göreli olarak dünya uzayında tanımlanan terrain'in verilen konumdaki yüksekliği örnekler.        
         GameObject egg = Instantiate(eggPrefab, pos, Quaternion.identity);
+        EggDropped.Occured(egg);
     }
 }
