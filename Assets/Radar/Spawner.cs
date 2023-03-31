@@ -5,13 +5,14 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject eggPrefab;
+    public GameObject trovePrefab;
     public Terrain terrain;
     TerrainData terrainData;
-    public Event EggDropped;
     void Start()
     {
         terrainData = terrain.terrainData;
-        InvokeRepeating("CreateEgg", 1f, 0.1f);
+        InvokeRepeating("CreateEgg", 1f, 1f);
+        InvokeRepeating("CreateTrove", 1f, 0.1f);
     }
 
     void CreateEgg()
@@ -21,6 +22,13 @@ public class Spawner : MonoBehaviour
         Vector3 pos = new Vector3(x, 0, z);
         pos.y = terrain.SampleHeight(pos) + 10; //Göreli olarak dünya uzayında tanımlanan terrain'in verilen konumdaki yüksekliği örnekler.        
         GameObject egg = Instantiate(eggPrefab, pos, Quaternion.identity);
-        EggDropped.Occured(egg);
+    }
+    void CreateTrove()
+    {
+        int x = (int)Random.Range(0, terrainData.size.x); //terrain data dan x değerini çekeriz.
+        int z = (int)Random.Range(0, terrainData.size.z); //terrain data dan y değerini çekeriz.
+        Vector3 pos = new Vector3(x, 0, z);
+        pos.y = terrain.SampleHeight(pos) + 10; //Göreli olarak dünya uzayında tanımlanan terrain'in verilen konumdaki yüksekliği örnekler.        
+        GameObject egg = Instantiate(trovePrefab, pos, Quaternion.identity);
     }
 }
