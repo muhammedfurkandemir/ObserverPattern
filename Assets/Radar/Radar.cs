@@ -12,6 +12,7 @@ public class RadarObject
 public class Radar : MonoBehaviour
 {
     public Transform playerPos;
+    public Text pickedText;
 
     float mapScale = 2.0f;
 
@@ -66,8 +67,14 @@ public class Radar : MonoBehaviour
 
     public void ItemDropped(GameObject go)
     {
-        print("İtem Dropped");
-        RegisterRadarObject(go, go.GetComponent<Egg>().icon);
+        print("Item Dropped");
+        RegisterRadarObject(go, go.GetComponent<Item>().icon);
     }
+    public void ItemPickedUp(GameObject go)
+    {
+        print("Item pickedup!");
+        RemoveRadarObject(go);
+    }
+     
 
 }
